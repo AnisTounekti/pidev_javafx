@@ -1,9 +1,12 @@
 package org.esprit.services;
 
+import javafx.scene.control.Alert;
 import org.esprit.entities.Guide;
+import org.esprit.entities.Reservation;
 import org.esprit.entities.Trip;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +94,7 @@ public class TripService implements IService<Trip> {
         // Open a connection
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              PreparedStatement stmt = conn.prepareStatement(SELECT_TRIP_BY_GUIDE)) {
-            stmt.setInt(1,guideSelected.getId());
+            stmt.setInt(1, guideSelected.getId());
             ResultSet rs = stmt.executeQuery();
             // Extract data from result set
             while (rs.next()) {
@@ -107,5 +110,20 @@ public class TripService implements IService<Trip> {
             e.printStackTrace();
         }
         return trips;
+    }
+
+    public void ajouterReservation(Trip trip) {
+        ReservationService reservationService = new ReservationService();
+        Reservation reservation = new Reservation(0, String.valueOf(trip.getId()), "Anis", LocalDateTime.now(), "Created");
+        reservationService.Ajouter(reservation);
+        showAlertWithHeaderText(trip.getName());
+    }
+
+    private void showAlertWithHeaderText(String header) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Reservation");
+        alert.setHeaderText(header);
+        alert.setContentText("reservation has been registered successfully");
+        alert.showAndWait();
     }
 }

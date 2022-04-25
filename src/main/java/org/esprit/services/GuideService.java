@@ -70,4 +70,26 @@ public class GuideService implements IService<Guide> {
             e.printStackTrace();
         }
     }
+
+    public List<Guide> getSearchGuidesByName(String name) {
+        if (name == null || "".equals(name)) {
+            return Afficher();
+        }
+        List<Guide> guides = new ArrayList();
+        // Open a connection
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(SELECT_GUIDE_LIKE_NAME)) {
+            pstmt.setString(1, name+"%");
+            ResultSet rs = pstmt.executeQuery();
+            // Extract data from result set
+            while (rs.next()) {
+                // Retrieve by column name
+                guides.add(new Guide(rs.getInt("id"), rs.getString("name"),
+                        rs.getInt("age")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return guides;
+    }
 }

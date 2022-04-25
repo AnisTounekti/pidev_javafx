@@ -97,7 +97,7 @@ public class ReservationController implements Initializable {
                     }
                 };
                 deleteButton.setOnAction(event -> {
-                    Trip trip = (Trip) table.getItems().get(cell.getTableRow().getIndex());
+                    Reservation trip = (Reservation) table.getItems().get(cell.getTableRow().getIndex());
                     reservationService.Supprimer(trip.getId());
                     reservations.remove(cell.getTableRow().getIndex());
                     table.getItems().remove(cell.getTableRow().getIndex());

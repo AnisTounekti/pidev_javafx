@@ -30,9 +30,9 @@ public class Mailling {
     public void sendEmail(String toEmail, String subject, String body) {
         try {
             String host = "smtp.gmail.com";
-            String user = "imen.khaldi@esprit.tn";
+            String user = "anis.tounekti@esprit.tn";
             String pass = "191JFT2850*";
-            String from = "imen.khaldi@esprit.tn";
+            String from = "anis.tounekti@esprit.tn";
             boolean sessionDebug = false;
 
             Properties props = System.getProperties();
@@ -44,7 +44,7 @@ public class Mailling {
             props.put("mail.smtp.starttls.required", "true");
             props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
-            //java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+            //java.security.Security.addProvider(new sun.security.ssl.SunJSSE());
             Session mailSession = Session.getDefaultInstance(props, null);
             mailSession.setDebug(sessionDebug);
             Message msg = new MimeMessage(mailSession);

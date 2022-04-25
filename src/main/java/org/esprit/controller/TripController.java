@@ -11,7 +11,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import org.esprit.Main;
 import org.esprit.entities.Guide;
+import org.esprit.entities.Reservation;
 import org.esprit.entities.Trip;
+import org.esprit.services.ReservationService;
 import org.esprit.services.TripService;
 
 import java.io.IOException;
@@ -91,7 +93,7 @@ public class TripController implements Initializable {
                 nbsejours.setCellValueFactory(new PropertyValueFactory<Guide, Integer>("nbSejour"));
                 prixs.setCellValueFactory(new PropertyValueFactory<Guide, Integer>("prix"));
                 actions.setCellFactory(col -> {
-                    Button deleteButton = new Button("Delete");
+                    Button reserverButton = new Button("reserver");
 
                     TableCell<Guide, Guide> cell = new TableCell<Guide, Guide>() {
                         @Override
@@ -100,16 +102,14 @@ public class TripController implements Initializable {
                             if (empty) {
                                 setGraphic(null);
                             } else {
-                                HBox pane = new HBox(deleteButton);
+                                HBox pane = new HBox(reserverButton);
                                 setGraphic(pane);
                             }
                         }
                     };
-                    deleteButton.setOnAction(event -> {
+                    reserverButton.setOnAction(event -> {
                         Trip trip = (Trip) table.getItems().get(cell.getTableRow().getIndex());
-                        tripService.Supprimer(trip.getId());
-                        trips.remove(cell.getTableRow().getIndex());
-                        table.getItems().remove(cell.getTableRow().getIndex());
+                        tripService.ajouterReservation(trip);
                     });
                     return cell;
                 });
@@ -191,5 +191,14 @@ public class TripController implements Initializable {
 
         }
         Main.setRoot("tripsOfGuide");
+    }
+
+    private void showAlertWithHeaderText(String champ, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur Saisie");
+        alert.setHeaderText("Results: " + champ + " " + message);
+        alert.setContentText("veuillez corriger votre saisie SVP");
+
+        alert.showAndWait();
     }
 }

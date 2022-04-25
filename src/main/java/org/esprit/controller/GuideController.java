@@ -34,6 +34,7 @@ public class GuideController implements Initializable {
     public Button btnSignout;
     public Pane pnlOverview;
     public Pane pnlGuides;
+    public TextField search;
     private boolean add = false;
     // add or edit Guide
     @FXML
@@ -60,6 +61,10 @@ public class GuideController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         if (url.getPath().endsWith("Guides.fxml")) {
+            search.textProperty().addListener((observable, oldValue, newValue) -> {
+                guides=guideService.getSearchGuidesByName(newValue);
+                table.setItems(FXCollections.observableArrayList(guides));
+            });
 
             guides = guideService.Afficher();
             for (int i = 0; i < guides.size(); i++) {
@@ -78,7 +83,7 @@ public class GuideController implements Initializable {
                             if (empty) {
                                 setGraphic(null);
                             } else {
-                                HBox pane = new HBox(tripsButton,editButton, deleteButton);
+                                HBox pane = new HBox(tripsButton, editButton, deleteButton);
                                 setGraphic(pane);
                             }
                         }
@@ -101,8 +106,7 @@ public class GuideController implements Initializable {
                     });
 
                     tripsButton.setOnAction(event -> {
-                        Guide guide = table.getItems().get(cell.getTableRow().getIndex());
-                        guideSelected = guide;
+                        guideSelected = table.getItems().get(cell.getTableRow().getIndex());
                         try {
                             Main.setRoot("tripsOfGuide");
                         } catch (IOException e) {
