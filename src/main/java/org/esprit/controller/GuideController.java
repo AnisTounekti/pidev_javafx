@@ -10,6 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import org.esprit.Main;
+import org.esprit.Utils;
 import org.esprit.entities.Guide;
 import org.esprit.services.GuideService;
 
@@ -175,10 +176,11 @@ public class GuideController implements Initializable {
             guideSelected.setAge(Integer.parseInt(age.getText()));
             guideService.Modifier(guideSelected);
             guideSelected = null;
+            Utils.generateNotification("modification guide", "guide a été modifié avec succes");
         } else {
             Guide guide = new Guide((int) (Math.random() * 100), name.getText(), Integer.parseInt(age.getText()));
             guideService.Ajouter(guide);
-
+            Utils.generateNotification("creation guide", "guide a été crée avec succes");
         }
         Main.setRoot("Guides");
     }

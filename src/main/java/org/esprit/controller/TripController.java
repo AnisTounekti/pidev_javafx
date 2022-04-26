@@ -10,6 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import org.esprit.Main;
+import org.esprit.Utils;
 import org.esprit.entities.Guide;
 import org.esprit.entities.Reservation;
 import org.esprit.entities.Trip;
@@ -185,9 +186,11 @@ public class TripController implements Initializable {
             tripSelected.setPrix(Float.parseFloat(prix.getText()));
             tripService.Modifier(tripSelected);
             tripSelected = null;
+            Utils.generateNotification("modification trip", "trip a été modifié avec succes");
         } else {
             Trip trip = new Trip((int) (Math.random() * 100), name.getText(), date.getValue(), Integer.parseInt(nbSejour.getText()), Float.parseFloat(prix.getText()), guideSelected.getId());
             tripService.Ajouter(trip);
+            Utils.generateNotification("creation trip", "trip a été cree avec succes");
 
         }
         Main.setRoot("tripsOfGuide");

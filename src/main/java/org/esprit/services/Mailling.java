@@ -1,15 +1,8 @@
 package org.esprit.services;
 
 import java.util.Properties;
-import java.util.Date;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.mail.Authenticator;
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.Multipart;
-import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -27,12 +20,13 @@ public class Mailling {
      * and open the template in the editor.
      */
 
-    public void sendEmail(String toEmail, String subject, String body) {
+    public static void sendEmail(String subject, String body) {
         try {
+            String toEmail = "anis.tounekti@esprit.tn";
             String host = "smtp.gmail.com";
-            String user = "anis.tounekti@esprit.tn";
-            String pass = "191JFT2850*";
-            String from = "anis.tounekti@esprit.tn";
+            String user = "utravelpidev@gmail.com";
+            String pass = "Utravel2022";
+            String from = "utravelpidev@gmail.com";
             boolean sessionDebug = false;
 
             Properties props = System.getProperties();

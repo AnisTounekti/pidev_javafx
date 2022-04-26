@@ -116,6 +116,7 @@ public class TripService implements IService<Trip> {
         ReservationService reservationService = new ReservationService();
         Reservation reservation = new Reservation(0, String.valueOf(trip.getId()), "Anis", LocalDateTime.now(), "Created");
         reservationService.Ajouter(reservation);
+        //Mailling.sendEmail("Reservation Trip","reservation has been registered successfully");
         showAlertWithHeaderText(trip.getName());
     }
 

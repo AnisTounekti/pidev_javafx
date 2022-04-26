@@ -3,6 +3,7 @@ module org.esprit {
   requires javafx.fxml;
   requires java.sql;
     requires mail;
+    requires org.controlsfx.controls;
     opens org.esprit.entities to javafx.base;
   opens org.esprit to javafx.fxml;
   exports org.esprit;

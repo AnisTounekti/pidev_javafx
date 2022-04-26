@@ -5,6 +5,11 @@
  */
 package org.esprit;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import org.controlsfx.control.Notifications;
+
 public final class Utils {
 
     public static final String DB_URL = "jdbc:mysql://localhost:3306/guide";
@@ -27,4 +32,18 @@ public final class Utils {
     public static final String INSERT_RESERVATION = "INSERT INTO reservation(trip,user,date,status) VALUES(?,?,?,?)";
     public static final String DELETE_RESERVATION = "DELETE FROM reservation where id = ?";
     public static final String UPDATE_RESERVATION = "UPDATE reservation set name=?, status=? where id=?";
+
+    public static void generateNotification(String title,String body){
+        Notifications notificationBuilder = Notifications.create()
+                .title(title)
+                .text(body)
+                .graphic(null).hideAfter(javafx.util.Duration.seconds(5))
+                .position(Pos.BASELINE_RIGHT)
+                .onAction(new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent event) {
+                        System.out.println("clicked ON");
+                    }		}		);
+        notificationBuilder.darkStyle();
+        notificationBuilder.show();
+    }
 }
